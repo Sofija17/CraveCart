@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Order Summary";
+}
+<br />
+
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- jQuery (full version, not slim) -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<div class="container" id="shoppingCart" style="border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
+    <h2>Your Order</h2>
+
+    <div id="orderSummary">
+        <h4>Items:</h4>
+        <ul id="orderItems"></ul>
+        <strong>Total: $<span id="orderTotal">0.00</span></strong>
+    </div>
+
+    <button id="payBtn" class="btn btn-success">Place order!</button>
+</div>
+
+
+<!-- Order Placed Modal -->
+<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderModalLabel">Order Placed</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Your order has been successfully placed! Thank you for shopping with us.
+                We will send you a confirmation email shortly.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+        // Load cart items from local storage
+        var cart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
+        var total = 0;
+
+        // Display the order items and total
+        $.each(cart, function (index, item) {
+            $("#orderItems").append("<li>" + item.name + " - $" + item.price.toFixed(2) + "</li>");
+            total += item.price;
+        });
+        $("#orderTotal").text(total.toFixed(2));
+
+        // Handle the "Place order" button click
+        $("#payBtn").on("click", function () {
+            // Show the Bootstrap modal
+            $('#orderModal').modal('show');
+        });
+    });
+
+</script>

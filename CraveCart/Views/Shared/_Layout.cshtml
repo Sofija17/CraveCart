@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    @Styles.Render("~/Content/jqueryui")  <!-- Include jQuery UI CSS -->
+    @Styles.Render("~/Content/datatables")  <!-- Include DataTables CSS -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")  <!-- Include jQuery UI JS -->
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/datatables")  <!-- Include DataTables JS -->
+    @Scripts.Render("~/bundles/jqueryval")
+    
+
+    <style>
+        /* Optional: Add custom styles here */
+        .navbar {
+            background-color: black; /* Change to white if needed */
+        }
+
+            .navbar .nav-link {
+                font-family: 'Alegreya Sans SC', sans-serif; /* Change the font family */
+                color: white; /* Link color */
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+                .navbar .nav-link:hover {
+                    color: #ff6600; /* Change color on hover */
+                }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm fixed-top">
+        <div class="container" style="height:90px;">
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                <img src="~/Content/images/logo.png" alt="CraveCart Logo" style="height: 200px; margin-top:-10px; margin-left: -50px;" />
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li>@Html.ActionLink("Restaurants", "Index", "Restaurants", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#contactModal">Contact us</a>
+                    </li>
+
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </nav>
+    <div style="margin-top: 100px;">
+        <!-- Adjust for fixed navbar height -->
+        @RenderBody()
+        </div>
+
+        <!-- Footer Section -->
+        <footer style="background-color: black; height: 140px; display: flex; justify-content: space-between; align-items: center; color: white; padding: 0 20px;">
+            <p class="mb-0">&copy; All rights reserved @DateTime.Now.Year</p>
+            <div style="background-color: rgba(255, 255, 255, 0.1); padding: 10px; width:300px ; border-radius: 5px;">
+                <p style="margin: 0; font-weight: bold; text-align:center;">Customer Support</p>
+                <p style="margin: 0; text-align: center;">info@cravecart.mk</p>
+                <p style="margin: 0; text-align: center;">02 3290055</p>
+                <p style="margin: 0; text-align: center;">02 3290051</p>
+
+            </div>
+        </footer>
+
+
+    </div>
+    <!-- Contact Modal -->
+    <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contactModalLabel">Contact Us</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Success Message Alert -->
+                    <div class="alert alert-success" id="successMessage" role="alert" style="display: none;">
+                        Message sent! Thank you for reaching out.
+                    </div>
+                    <div class="text-center mb-4">
+                        <p><strong>Phone:</strong> 02 3060 200</p>
+                        <p><strong>Email:</strong> info@cravecart.mk</p>
+                    </div>
+                    <hr>
+                    <h5 class="text-center">Send Us a Message</h5>
+                    <p class="text-center text-muted">This form is used for sending an email message. The information is not stored in our system.</p>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Your Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text" class="form-control" id="phone" placeholder="Your Phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea class="form-control" id="message" rows="3" placeholder="Your Message"></textarea>
+                        </div>
+                        <button type="button" class="btn btn-danger btn-block" id="sendMessageBtn">SEND MESSAGE</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- JavaScript Code -->
+    <script>
+        $(document).ready(function () {
+            $('#sendMessageBtn').click(function () {
+                var name = $('#name').val();
+                var phone = $('#phone').val();
+                var message = $('#message').val();
+
+                if (name && phone && message) {
+                    // Simulate form submission
+                    console.log("Name: " + name + ", Phone: " + phone + ", Message: " + message);
+
+                    // Show success message
+                    $('#successMessage').show();
+
+                    // Optionally hide the modal after showing the message
+                    setTimeout(function () {
+                        $('#successMessage').hide();
+                        $('#contactModal').modal('hide');
+                    }, 2000); // Hide after 2 seconds
+                } else {
+                    alert('Please fill out all fields.');
+                }
+            });
+        });
+    </script>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,38 @@
+﻿@model CraveCart.Models.Food
+
+<style>
+    .daily-deal {
+        border: 2px solid #ff6600; /* Orange border */
+        background-color: #f8f8f8; /* Light background color */
+        border-radius: 10px; /* Rounded corners */
+        padding: 15px; /* Padding inside the div */
+        margin: 15px 0; /* Margin around the div */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    }
+
+    .food-image {
+        border: 2px solid #ff6600; /* Orange border around the image */
+        border-radius: 5px; /* Rounded corners for the image */
+        width: 150px; /* Fixed width */
+        height: auto; /* Auto height to maintain aspect ratio */
+    }
+
+    .food-name {
+        color: #ff6600; /* Change this color as needed */
+        font-weight: bold; /* Make the font bold for emphasis */
+    }
+</style>
+
+<div class="ui-tabs-panel panel-danger daily-deal">
+    <div class="panel-heading">
+        <h3 class="food-name">Don't miss out on your daily deal: @Model.Name</h3>
+        @* <p>Discounted Price: $@Model.Price.ToString("F2")</p>*@
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+    {
+        <a href="@Url.Action("Details", "Restaurants", new { id = Model.RestaurantId })">
+            <img src="@Model.ImageUrl" alt="@Model.Name" class="food-image" />
+        </a>
+    }
+</div>

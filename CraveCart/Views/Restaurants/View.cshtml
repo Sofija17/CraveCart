@@ -1,0 +1,55 @@
+﻿@model CraveCart.Models.Restaurant
+
+
+@{
+    ViewBag.Title = "Menu for " + Model.Name;
+}
+
+<h2>Menu for @Model.Name</h2>
+
+<!-- Button to add a new food item -->
+<div>
+    @Html.ActionLink("Add New Food Item", "CreateFoodItem", new { id = Model.Id }, new { @class = "btn btn-primary" })
+</div>
+
+<br />
+
+@if (Model.Foods != null && Model.Foods.Any())
+{
+    <!-- Display the list of food items if available -->
+    <div class="container">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Food Name</th>
+                    <th>Price</th>
+                    <th>Ingredients</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var food in Model.Foods)
+                {
+                    <tr>
+                        <td>@food.Name</td>
+                        <td>@food.Price.ToString("C")</td>
+                        <td>@food.Ingredients</td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditFoodItem", new { id = food.Id }) |
+                            @Html.ActionLink("Details", "DetailsFoodItem", new { id = food.Id }) |
+                            @Html.ActionLink("Delete", "DeleteFoodItem", new { id = food.Id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <!-- Show a message if there are no food items -->
+    <div class="alert alert-info">
+        No food items are currently available for this restaurant.
+        @Html.ActionLink("Add a new food item", "CreateFoodItem", new { id = Model.Id }, new { @class = "btn btn-link" })
+    </div>
+}

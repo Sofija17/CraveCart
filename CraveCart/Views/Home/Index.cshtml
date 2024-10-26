@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<style>
+    /* Corrected the CSS selector and style syntax */
+    #paket {
+        height: 350px;
+        width:350px;
+        top: -40px;
+        position:relative;
+        left:-400px;
+        
+    }
+    .location {
+        position: relative;
+        right: -500px;
+        height: 50px;
+        text-align: center;
+        text-align: center;
+        white-space: normal;
+    }
+</style>
+
+<main>
+    <img src="~/Content/images/img.png" style="width: 100%; height: auto;" />
+</main>
+
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+
+
+<div style="background-color:darkred; width:100%; height:180px; padding-top: 30px; display: flex; align-items: center; justify-content: space-between;">
+    <!-- Button to fetch the daily deal -->
+    @Ajax.ActionLink("CLICK TO FIND OUT TODAY'S DAILY DEAL!",
+        "DailyDeal",              // Action name
+        "Restaurants",            // Controller name
+        null,                     // Route values (null if none)
+        new AjaxOptions
+        {
+            UpdateTargetId = "dailydeal", // The div to update
+            InsertionMode = InsertionMode.Replace, // Replace the content inside the div
+            HttpMethod = "GET" // Use GET request
+        },
+        new { @class = "location btn btn-success", style = "margin-top: 0;" } // Button with no extra margin
+    )
+    <!-- Small Image on the Right -->
+    <img src="~/Content/images/food-delivery.png" alt="Description of Image" id="paket" />
+</div>
+
+
+<!-- This div will be updated with the daily deal -->
+<div class="container" id="dailydeal" border="1px solid" width="300px" height="300px">
+    <!-- The content will be replaced dynamically here -->
+</div>
+

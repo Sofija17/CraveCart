@@ -1,0 +1,85 @@
+﻿/* Set padding to keep content from hitting the edges */
+.body-content {
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* Site.css */
+
+body {
+    font-family: 'Alegreya Sans SC', sans-serif;
+}
+
+/* Optional: Apply to headings or specific elements */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Alegreya Sans SC', sans-serif;
+}
+
+p {
+    font-family: 'Alegreya Sans SC', sans-serif;
+}
+/*  CSS to customize RESTAURANTS TABLE */
+#restaurantsTable thead th {
+    background-color: #ed2727; /* Change to desired color */
+    color: #ffffff; /* Change text color */
+}
+
+#restaurantsTable tbody tr {
+    background-color: #f6f6f6; /* Change row color */
+}
+
+#restaurantsTable td {
+    text-align: center;
+    font-size: 15px;
+}
+
+/*  CSS to customize MENU TABLE */
+
+#menuTable tbody tr {
+    background-color: #f6f6f6; /* Change row color */
+}
+#menuTable thead th {
+    background-color: #ed2727; /* Change to desired color */
+    color: #ffffff; /* Change text color */
+}
+#menuTable td {
+    text-align: center;
+    font-size: 18px;
+}
+table {
+    width: 100%;
+}
+
+/* */
+.cart-item {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between item name/price and button */
+    align-items: center; /* Center align items vertically */
+    margin-bottom: 5px; /* Optional: Add some space between items */
+}
+
+.remove-from-cart {
+    margin-left: 15px; /* Add some margin to the left of the button */
+}
+/* Modal Title Styling */
+.modal-title {
+    font-family: 'Alegreya Sans SC', sans-serif; /* Assuming you want to use the same custom font */
+    font-weight: bold;
+}
+
+
